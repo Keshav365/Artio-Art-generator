@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h1 class="text-2xl font-bold mb-6">Generate Art</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Artist</label>
+                    <select id="artist" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        <option value="monet">Claude Monet</option>
+                        <option value="van_gogh">Vincent van Gogh</option>
+                        <option value="unknown">Unknown Artist</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Genre</label>
+                    <select id="genre" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        <option value="landscape">Landscape</option>
+                        <option value="portrait">Portrait</option>
+                        <option value="abstract">Abstract</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Style</label>
+                    <select id="style" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        <option value="impressionism">Impressionism</option>
+                        <option value="cubism">Cubism</option>
+                        <option value="abstract_expressionism">Abstract Expressionism</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Seed (optional)</label>
+                    <input type="number" id="seed" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="Random if empty">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Truncation</label>
+                    <input type="range" id="truncation" min="0" max="2" step="0.1" value="1.0" 
+                           class="mt-1 block w-full">
+                    <span id="truncation-value" class="text-sm text-gray-500">1.0</span>
+                </div>
+                
+                <button id="generate" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    Generate
+                </button>
+                
+                <!-- Timer display -->
+                <div id="timer" class="mt-4 text-sm font-medium text-gray-700">Time: 0s</div>
+            </div>
+            
+            <div class="relative">
+                <div id="loading" class="hidden absolute inset-0 bg-gray-200 bg-opacity-75 flex items-center justify-center">
+                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+                </div>
+                <img id="result" src="{{ url_for('static', filename='images/placeholder.png') }}" 
+                     class="w-full h-auto rounded-lg shadow-md" alt="Generated artwork">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+<script>
+    // Get references to DOM elements
+    const generateButton = document.getElementById('generate');
+    const loadingElement = document.getElementById('loading');
+    const resultImage = document.getElementById('result');
+    const timerElement = document.getElementById('timer');
+
+    let timerInterval;
+    let timerStartTime;
+
+    // Start timer function
+    function startTimer() {
+        console.log("TIme started");
+        timerStartTime = Date.now();
+        timerInterval = setInterval(() => {
+            const elapsedTime = Math.floor((Date.now() - timerStartTime) / 1000);
+            timerElement.textContent = `Time: ${elapsedTime}s`;
+        }, 1000);
+    }
+
+    // Stop timer function
+    function stopTimer() {
+        clearInterval(timerInterval);
+    }
+
+    // Handle image generation
+    generateButton.addEventListener('click', () => {
+        // Show loading animation
+        loadingElement.classList.remove('hidden');
+        
+        // Start the timer when generation begins
+        startTimer();
+
+        // Simulate image generation (replace with your actual image generation logic)
+        setTimeout(() => {
+            // Hide loading animation
+            loadingElement.classList.add('hidden');
+            
+            // Display the generated image (replace this with actual image URL)
+            resultImage.src = "{{ url_for('static', filename='images/generated_art.png') }}";
+
+            // Stop the timer once the image is generated
+            stopTimer();
+        }, 5000); // Simulate a 5-second delay (replace with your actual generation time)
+    });
+</script>
