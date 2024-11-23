@@ -189,16 +189,9 @@ MODEL_PATH=/path/to/your/WikiArt5.pkl
    - Reduce batch size
    - Use CPU if GPU memory is insufficient
 
-### Getting Help
-
-If you encounter any issues:
-
-1. Check the [Issues](https://github.com/saketsarin) page
-2. Read through existing solutions
-3. Create a new issue if needed
 
 ## 📧 Contact
 
-Your Name - Saket Sarin
+Your Name - Shivam Goyal
 
-Project Link: [https://github.com/saketsarin/stylegan-art-generator](https://github.com/saketsarin/stylegan-art-generator)
+Project Link: [https://github.com/Keshav365/Artio-Art-generator](https://github.com/Keshav365/Artio-Art-generator)
